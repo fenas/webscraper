@@ -1,4 +1,8 @@
-const PORT = 8000
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 const axios = require('axios')
 const cheerio = require('cheerio')
 const express = require('express')
