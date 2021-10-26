@@ -1,7 +1,7 @@
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
+let PORT = process.env.PORT;
+if (PORT == null || PORT == "") {
+  PORT = 8000;
 }
 const axios = require('axios')
 const cheerio = require('cheerio')
@@ -27,13 +27,17 @@ app.get('/results', (req, res) => {
             const articles = []
 
             $('.metro__post', html).each(function () { //<-- cannot be a function expression
-                const title = $(this).text()
+                const title = $(this).find('.metro__post__title__decoration').text()
                 const url = $(this).find('a').attr('href')
                 const img = $(this).find('.metro__post__media').find('img').attr('src');
+                const subtitle = $(this).find('.metro__post__meta').text();
+
+
                 articles.push({
                     title,
                     url,
-                    img
+                    img,
+                    subtitle
                 })
             })
             res.json(articles)
